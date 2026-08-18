@@ -703,7 +703,7 @@
                 <div class="results-grid" id="resultsGrid"></div>
 
                 <div class="recommendations-section">
-                    <div class="api-section" id="apiSection">
+                    <div class="api-section" id="apiSection" style="display: none;">
                         <label for="apiKeyInput">URL Cloudflare Worker (pentru recomandări AI):</label>
                         <input type="text" id="apiKeyInput" placeholder="https://parfumulmeu.revivinghandicraft.workers.dev/" value="https://parfumulmeu.revivinghandicraft.workers.dev/">
                         <small>URL-ul proxy Cloudflare Worker care trimite cererea la API-ul Anthropic. URL-ul nu va fi salvat.</small>
@@ -716,7 +716,7 @@
                     <div class="error-message" id="errorMessage"></div>
 
                     <div class="final-actions" id="finalActions">
-                        <button class="btn-recommend" onclick="toggleApiSection()">🤖 Generează recomandări AI</button>
+                        <button class="btn-recommend" onclick="generateRecommendations()">🤖 Generează recomandări AI</button>
                         <button class="btn-restart" onclick="restart()">Restart</button>
                     </div>
 
@@ -1180,22 +1180,7 @@
 
         // GENERATE RECOMMENDATIONS
         function generateRecommendations() {
-            const workerUrl = document.getElementById('apiKeyInput').value.trim();
-            const errorMessage = document.getElementById('errorMessage');
-            
-            if (!workerUrl) {
-                errorMessage.textContent = 'Te rog introdu URL-ul Cloudflare Worker.';
-                errorMessage.classList.add('show');
-                return;
-            }
-
-            if (!workerUrl.startsWith('http')) {
-                errorMessage.textContent = 'URL-ul trebuie să înceapă cu http:// sau https://';
-                errorMessage.classList.add('show');
-                return;
-            }
-
-            errorMessage.classList.remove('show');
+            const workerUrl = "https://parfumulmeu.revivinghandicraft.workers.dev/";
 
             const recommendationsContainer = document.getElementById('recommendationsContainer');
             const recommendationsContent = document.getElementById('recommendationsContent');

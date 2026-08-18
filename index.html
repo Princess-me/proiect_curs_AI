@@ -92,7 +92,6 @@
             min-height: 400px;
         }
 
-        /* ECRANUL DE START - SELECTARE GEN */
         .gender-screen {
             display: block;
             text-align: center;
@@ -149,17 +148,6 @@
             box-shadow: 0 12px 35px rgba(0,0,0,0.15);
         }
 
-        .gender-icon {
-            font-size: 3.5em;
-            opacity: 0.8;
-        }
-
-        .gender-btn:hover .gender-icon {
-            opacity: 1;
-            transform: scale(1.1);
-        }
-
-        /* ECRANUL QUIZ */
         .quiz-screen {
             display: none;
         }
@@ -271,7 +259,6 @@
             box-shadow: 0 0 0 3px rgba(0,0,0,0.05);
         }
 
-        /* BUTOANE */
         .button-group {
             display: flex;
             gap: 15px;
@@ -319,7 +306,6 @@
             cursor: not-allowed;
         }
 
-        /* ECRANUL DE REZULTATE */
         .results-screen {
             display: none;
         }
@@ -407,7 +393,6 @@
             margin-top: 4px;
         }
 
-        /* SECȚIUNEA RECOMANDĂRI */
         .recommendations-section {
             margin-top: 40px;
             padding-top: 40px;
@@ -448,75 +433,9 @@
             border: 2px solid #e0e0e0;
             line-height: 1.8;
             color: #333;
-            max-height: 500px;
-            overflow-y: auto;
             font-size: 1em;
         }
 
-        .recommendations-content::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        .recommendations-content::-webkit-scrollbar-track {
-            background: #f1f1f1;
-            border-radius: 10px;
-        }
-
-        .recommendations-content::-webkit-scrollbar-thumb {
-            background: var(--primary-color);
-            border-radius: 10px;
-        }
-
-        /* API URL SECTION */
-        .api-section {
-            background: #fef3cd;
-            border-left: 4px solid #ffc107;
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 25px;
-            display: none;
-        }
-
-        .api-section.show {
-            display: block;
-        }
-
-        .api-section label {
-            display: block;
-            font-weight: 600;
-            margin-bottom: 8px;
-            color: #856404;
-        }
-
-        .api-section input {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ffc107;
-            border-radius: 6px;
-            font-size: 0.9em;
-            margin-bottom: 8px;
-        }
-
-        .api-section small {
-            display: block;
-            color: #856404;
-            margin-top: 8px;
-            line-height: 1.5;
-        }
-
-        .api-btn-group {
-            display: flex;
-            gap: 10px;
-            margin-top: 12px;
-        }
-
-        .api-btn-group button {
-            flex: 1;
-            padding: 10px;
-            font-size: 0.9em;
-        }
-
-        /* BUTOANE FINALE */
         .final-actions {
             display: flex;
             gap: 12px;
@@ -548,29 +467,9 @@
             background: #e0e0e0;
         }
 
-        /* ERROR MESSAGE */
-        .error-message {
-            background: #f8d7da;
-            color: #721c24;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            border-left: 4px solid #f5c6cb;
-            display: none;
-        }
-
-        .error-message.show {
-            display: block;
-        }
-
-        /* RESPONSIVE */
         @media (max-width: 768px) {
             .header h1 {
                 font-size: 2em;
-            }
-
-            .header p {
-                font-size: 1em;
             }
 
             .content {
@@ -581,36 +480,12 @@
                 grid-template-columns: 1fr;
             }
 
-            .gender-btn {
-                padding: 35px;
-            }
-
-            .question-text {
-                font-size: 1.2em;
-            }
-
-            .button-group {
-                flex-direction: column;
-            }
-
             .results-grid {
                 grid-template-columns: 1fr;
-            }
-
-            .recommendations-content {
-                font-size: 0.95em;
             }
         }
 
         @media (max-width: 480px) {
-            .container {
-                border-radius: 10px;
-            }
-
-            .header {
-                padding: 30px 20px;
-            }
-
             .header h1 {
                 font-size: 1.6em;
             }
@@ -624,22 +499,6 @@
                 font-size: 1.1em;
             }
 
-            .gender-icon {
-                font-size: 2.5em;
-            }
-
-            .question-text {
-                font-size: 1.05em;
-            }
-
-            .results-grid {
-                gap: 12px;
-            }
-
-            .result-card {
-                padding: 15px;
-            }
-
             .result-score {
                 font-size: 1.5em;
             }
@@ -648,15 +507,12 @@
 </head>
 <body>
     <div class="container">
-        <!-- HEADER -->
         <div class="header">
             <h1>Parfumul Meu</h1>
             <p>Descoperă-ți parfumul perfect cu ajutorul inteligenței artificiale</p>
         </div>
 
-        <!-- CONTENT -->
         <div class="content">
-            <!-- GENDER SELECTION SCREEN -->
             <div id="genderScreen" class="gender-screen">
                 <div class="gender-intro">
                     <h2>Bun venit în Parfumul Meu!</h2>
@@ -672,7 +528,6 @@
                 </div>
             </div>
 
-            <!-- QUIZ SCREEN -->
             <div id="quizScreen" class="quiz-screen">
                 <div class="progress-container">
                     <div class="progress-bar">
@@ -693,7 +548,6 @@
                 </div>
             </div>
 
-            <!-- RESULTS SCREEN -->
             <div id="resultsScreen" class="results-screen">
                 <div class="results-header">
                     <div class="results-title">Profilul tău olfactiv</div>
@@ -703,27 +557,14 @@
                 <div class="results-grid" id="resultsGrid"></div>
 
                 <div class="recommendations-section">
-                    <div class="api-section" id="apiSection" style="display: none;">
-                        <label for="apiKeyInput">URL Cloudflare Worker (pentru recomandări AI):</label>
-                        <input type="text" id="apiKeyInput" placeholder="https://parfumulmeu.revivinghandicraft.workers.dev/" value="https://parfumulmeu.revivinghandicraft.workers.dev/">
-                        <small>URL-ul proxy Cloudflare Worker care trimite cererea la API-ul Anthropic. URL-ul nu va fi salvat.</small>
-                        <div class="api-btn-group">
-                            <button class="btn-recommend" onclick="generateRecommendations()">🤖 Generează recomandări</button>
-                            <button class="btn-secondary" onclick="toggleApiSection()">Anulează</button>
-                        </div>
-                    </div>
-
-                    <div class="error-message" id="errorMessage"></div>
-
                     <div class="final-actions" id="finalActions">
-                        <button class="btn-recommend" onclick="generateRecommendations()">🤖 Generează recomandări AI</button>
+                        <button class="btn-recommend" onclick="showRecommendations()">✨ Vezi recomandări</button>
                         <button class="btn-restart" onclick="restart()">Restart</button>
                     </div>
 
                     <div id="recommendationsContainer" style="display: none;">
                         <div class="recommendations-header">
-                            <div class="recommendations-title">Recomandări personalizate</div>
-                            <div id="recommendationsSpinner"></div>
+                            <div class="recommendations-title">Parfumuri personalizate</div>
                         </div>
                         <div class="recommendations-content" id="recommendationsContent"></div>
                     </div>
@@ -733,7 +574,6 @@
     </div>
 
     <script>
-        // QUESTIONS - Updated with data from Fragrantica & EasyCosmetic
         const QUESTIONS_DATA = {
             barbat: [
                 {
@@ -863,8 +703,8 @@
                     category: "heart_notes",
                     options: [
                         { text: "Florale clasice (Trandafir roșu, Iasomie, Narcisă)", example: "Ex: Chanel No. 5, Guerlain Shalimar" },
-                        { text: "Florale moderne (Pivoină, Liliac, Frezii, Gardenie)", example: "Ex: Lancôme La Vie est Belle, Dior J'Adore" },
-                        { text: "Fructate și dulce (Cireșă, Piersică, Cacao, Caram)", example: "Ex: Moschino Toy, Prada Candy" },
+                        { text: "Florale moderne (Pivoniu, Liliac, Frezii, Gardenie)", example: "Ex: Lancôme La Vie est Belle, Dior J'Adore" },
+                        { text: "Fructate și dulce (Cireșă, Piersică, Cacao, Caramel)", example: "Ex: Moschino Toy, Prada Candy" },
                         { text: "Condimente și cald (Scortișoară, Cardamom, Anason)", example: "Ex: Yves Saint Laurent Opium, Dior Poison" }
                     ]
                 },
@@ -925,7 +765,7 @@
                         { text: "Trandafir - clasic și romantic", example: "Ex: Chanel No. 5, Dior Miss Dior" },
                         { text: "Iasomie - exotic și nocturn", example: "Ex: Chanel No. 5, Guerlain Shalimar" },
                         { text: "Ornieț/Iris - elegant și rafinat", example: "Ex: Dior Miss Dior, Givenchy Amarige" },
-                        { text: "Pivoină - modern și plin de viață", example: "Ex: Lancôme La Vie est Belle, Dior J'Adore" }
+                        { text: "Pivoniu - modern și plin de viață", example: "Ex: Lancôme La Vie est Belle, Dior J'Adore" }
                     ]
                 },
                 {
@@ -941,13 +781,130 @@
             ]
         };
 
-        // GLOBAL STATE
+        const PARFUMURI_RECOMANDARI = {
+            barbat: {
+                citric: [
+                    { nume: "Acqua di Parma Colonia", note: "Bergamotă, Lavandă, Neroli", concentratie: "EDC" },
+                    { nume: "Dior Homme Sport", note: "Lămâie, Grapefruit, Ambroxan", concentratie: "EDT" },
+                    { nume: "Hermès Eau de Gentleman", note: "Neroli, Grapefruit, Cedru", concentratie: "EDT" },
+                    { nume: "Issey Miyake Pour Homme", note: "Bergamotă, Cedru, Musk", concentratie: "EDT" },
+                    { nume: "Clinique Happy for Men", note: "Portocală, Iarbă, Musk", concentratie: "EDT" }
+                ],
+                floral: [
+                    { nume: "Dior Sauvage", note: "Bergamotă, Ambroxan, Piper", concentratie: "EDT/EDP" },
+                    { nume: "Bleu de Chanel", note: "Limoncello, Neroli, Cedru", concentratie: "EDT/EDP" },
+                    { nume: "Creed Green Irish Tweed", note: "Trandafir, Iris, Palisandru", concentratie: "EDP" },
+                    { nume: "Tom Ford Grey Vetiver", note: "Vetiver, Cedru, Lemon", concentratie: "EDP" },
+                    { nume: "Prada L'Homme", note: "Iris, Ambrette, Tonka", concentratie: "EDT" }
+                ],
+                fruity: [
+                    { nume: "Versace Eros", note: "Piersică, Vanilie, Musk", concentratie: "EDT/EDP" },
+                    { nume: "Prada L'Homme", note: "Piersică, Cacao, Vanilie", concentratie: "EDT" },
+                    { nume: "Guerlain L'Homme Ideal", note: "Piersică, Amaretto, Fructe", concentratie: "EDT/EDP" },
+                    { nume: "Lancôme L'Homme Intense", note: "Piersică, Fructe, Vanilie", concentratie: "EDP" },
+                    { nume: "Calvin Klein Obsession", note: "Fructe, Musk, Ambra", concentratie: "EDT" }
+                ],
+                oriental: [
+                    { nume: "Tom Ford Noir", note: "Scortișoară, Cacao, Musk", concentratie: "EDP" },
+                    { nume: "Yves Saint Laurent La Nuit", note: "Mandarin, Iasomie, Vanilie", concentratie: "EDT/EDP" },
+                    { nume: "Dior Sauvage Elixir", note: "Speceaze, Ambra, Cedru", concentratie: "EDP" },
+                    { nume: "Givenchy Gentleman Reserve Privée", note: "Scortișoară, Cacao, Iris", concentratie: "EDP" },
+                    { nume: "Paco Rabanne 1 Million", note: "Caramel, Vanilie, Musk", concentratie: "EDT/EDP" }
+                ],
+                fresh: [
+                    { nume: "Acqua di Gioia", note: "Lămâie, Verbena, Marin", concentratie: "EDT" },
+                    { nume: "Clinique Happy for Men", note: "Portocală, Iarbă, Musk", concentratie: "EDT" },
+                    { nume: "Acqua di Parma Blu Mediterraneo", note: "Lămâie, Grapefruit, Marin", concentratie: "EDT" },
+                    { nume: "Versace Eau Fraîche", note: "Lămâie, Grapefruit, Musk", concentratie: "EDT" },
+                    { nume: "Hermès Eau de Gentleman", note: "Neroli, Grapefruit, Cedru", concentratie: "EDT" }
+                ],
+                woody: [
+                    { nume: "Hermès Terre d'Hermès", note: "Orange, Cedru, Patchouli", concentratie: "EDT/EDP" },
+                    { nume: "Creed Green Irish Tweed Parfum", note: "Trandafir, Cedru, Palisandru", concentratie: "Parfum" },
+                    { nume: "Tom Ford Oud Wood", note: "Oud, Lemn de Tei, Vanilie", concentratie: "EDP" },
+                    { nume: "Dior Homme Intense", note: "Iris, Cedru, Peper", concentratie: "EDP" },
+                    { nume: "Givenchy Gentleman Reserve", note: "Lemn, Cedru, Iris", concentratie: "EDP" }
+                ],
+                aromatic: [
+                    { nume: "Givenchy Gentleman", note: "Iris, Scortișoară, Cacao", concentratie: "EDT/EDP" },
+                    { nume: "Acqua di Parma Colonia", note: "Bergamotă, Lavandă, Neroli", concentratie: "EDC" },
+                    { nume: "Versace Eros", note: "Peperita, Vanilie, Musk", concentratie: "EDT/EDP" },
+                    { nume: "Hermès Eau de Gentleman", note: "Neroli, Grapă, Cedru", concentratie: "EDT" },
+                    { nume: "Penhaligon's Blenheim Bouquet", note: "Lavandă, Neroli, Rozmarin", concentratie: "EDT" }
+                ],
+                green: [
+                    { nume: "Creed Green Irish Tweed", note: "Trandafir, Iris, Palisandru", concentratie: "EDP" },
+                    { nume: "Acqua di Parma Blu Mediterraneo", note: "Lămâie, Grapefruit, Marin", concentratie: "EDT" },
+                    { nume: "Hermès Eau de Gentleman", note: "Neroli, Grapefruit, Cedru", concentratie: "EDT" },
+                    { nume: "Penhaligon's Elisium", note: "Frunze Verzi, Bergamotă, Rozmarin", concentratie: "EDT" },
+                    { nume: "Tom Ford Grey Vetiver", note: "Vetiver, Cedru, Lemon", concentratie: "EDP" }
+                ]
+            },
+            femeie: {
+                citric: [
+                    { nume: "Light Blue by Dolce & Gabbana", note: "Lămâie, Grapefruit, Marin", concentratie: "EDT" },
+                    { nume: "Hermès Eau de Merveilles Bleue", note: "Bergamotă, Neroli, Cedru", concentratie: "EDT" },
+                    { nume: "Acqua di Parma Blu Mediterraneo", note: "Lămâie, Grapefruit, Marin", concentratie: "EDT" },
+                    { nume: "Clinique Happy", note: "Portocală, Verbena, Musk", concentratie: "EDT" },
+                    { nume: "Lancôme La Vie est Belle Soleil Cristal", note: "Portocală, Vanilie, Cacao", concentratie: "EDT" }
+                ],
+                floral: [
+                    { nume: "Chanel No. 5", note: "Trandafir, Iasomie, Ambra", concentratie: "EDT/EDP" },
+                    { nume: "Dior Miss Dior", note: "Trandafir, Iris, Grație", concentratie: "EDT/EDP" },
+                    { nume: "Guerlain Shalimar", note: "Trandafir, Iasomie, Vanilie", concentratie: "EDT/EDP" },
+                    { nume: "Lancôme Trésor", note: "Trandafir, Petunia, Cacao", concentratie: "EDT/EDP" },
+                    { nume: "Dior J'Adore", note: "Trandafir, Irisă, Ambra", concentratie: "EDT/EDP" }
+                ],
+                fruity: [
+                    { nume: "Prada Candy", note: "Scortișoară, Vanilie, Benzoină", concentratie: "EDT/EDP" },
+                    { nume: "Moschino Toy 2", note: "Fructe, Vanilie, Musk", concentratie: "EDP" },
+                    { nume: "Juicy Couture Viva La Juicy", note: "Piersică, Zmeură, Musk", concentratie: "EDT" },
+                    { nume: "Lancôme La Vie est Belle", note: "Iris, Vanilie, Cacao", concentratie: "EDT/EDP" },
+                    { nume: "Viktor & Rolf Bonbon", note: "Caramel, Vanilie, Tonka", concentratie: "EDP" }
+                ],
+                oriental: [
+                    { nume: "Yves Saint Laurent Opium", note: "Scortișoară, Iasomie, Ambra", concentratie: "EDT/EDP" },
+                    { nume: "Dior Poison", note: "Scortișoară, Iasomie, Patchouli", concentratie: "EDT" },
+                    { nume: "Lancôme Trésor Passion", note: "Trandafir, Caramel, Vanilie", concentratie: "EDP" },
+                    { nume: "Estée Lauder Sensuous", note: "Iasomie, Cacao, Vanilie", concentratie: "EDP" },
+                    { nume: "Tom Ford Velvet Orchid", note: "Orchidie, Cacao, Patchouli", concentratie: "EDP" }
+                ],
+                fresh: [
+                    { nume: "Light Blue by Dolce & Gabbana", note: "Lămâie, Grapefruit, Marin", concentratie: "EDT" },
+                    { nume: "Hermès Eau de Merveilles", note: "Bergamotă, Portocală, Ambar", concentratie: "EDT" },
+                    { nume: "Jo Malone Nectarine Blossom & Honey", note: "Nectarină, Flori, Miere", concentratie: "EDC" },
+                    { nume: "Acqua di Parma Rosa Nobile", note: "Trandafir, Bergamotă, Musk", concentratie: "EDT" },
+                    { nume: "Yardley English Lavender", note: "Lavandă, Bergamotă, Musk", concentratie: "EDT" }
+                ],
+                woody: [
+                    { nume: "Chloé Nomade", note: "Lemn, Patchouli, Flori", concentratie: "EDP" },
+                    { nume: "Lancôme Poème", note: "Trandafir, Lemn, Ambra", concentratie: "EDP" },
+                    { nume: "Tom Ford Soleil Blanc", note: "Vanilie, Cedru, Coconut", concentratie: "EDP" },
+                    { nume: "Dior Hypnotic Poison", note: "Patchouli, Vanilie, Ambroxan", concentratie: "EDT/EDP" },
+                    { nume: "Givenchy L'Homme Prada", note: "Iris, Cedru, Tonka", concentratie: "EDT" }
+                ],
+                aromatic: [
+                    { nume: "Bvlgari Aqua Lavender", note: "Lavandă, Bergamotă, Musk", concentratie: "EDT" },
+                    { nume: "Hermès Eau de Merveilles", note: "Bergamotă, Portocală, Ambar", concentratie: "EDT" },
+                    { nume: "Acqua di Parma Rosa Nobile", note: "Trandafir, Bergamotă, Musk", concentratie: "EDT" },
+                    { nume: "Lancôme Maison Lancôme Lavandes Trianon", note: "Lavandă, Bergamotă, Musk", concentratie: "EDP" },
+                    { nume: "Penhaligon's Delphinium", note: "Delphinium, Bergamotă, Musk", concentratie: "EDT" }
+                ],
+                green: [
+                    { nume: "Hermès Eau de Merveilles", note: "Bergamotă, Portocală, Ambar", concentratie: "EDT" },
+                    { nume: "Jo Malone Wild Bluebell", note: "Clopoții, Violă, Iarbă", concentratie: "EDC" },
+                    { nume: "Penhaligon's Artemisia", note: "Artemisia, Trandafir, Iarbă", concentratie: "EDT" },
+                    { nume: "Acqua di Parma Blu Mediterraneo", note: "Lămâie, Grapefruit, Marin", concentratie: "EDT" },
+                    { nume: "Maison Margiela Beach Walk", note: "Trandafir, Iarbă Proaspătă, Marin", concentratie: "EDT" }
+                ]
+            }
+        };
+
         let currentGender = null;
         let currentQuestion = 0;
         let answers = [];
         let scores = {};
 
-        // START QUIZ
         function selectGender(gender) {
             currentGender = gender;
             document.body.classList.add('gender-selected');
@@ -957,7 +914,6 @@
             loadQuestion();
         }
 
-        // LOAD QUESTION
         function loadQuestion() {
             const questions = QUESTIONS_DATA[currentGender];
             const question = questions[currentQuestion];
@@ -995,13 +951,11 @@
             document.getElementById('nextBtn').disabled = answers[currentQuestion] === undefined;
         }
 
-        // SELECT OPTION
         function selectOption(index) {
             answers[currentQuestion] = index;
             loadQuestion();
         }
 
-        // NEXT QUESTION
         function nextQuestion() {
             if (currentQuestion < QUESTIONS_DATA[currentGender].length - 1) {
                 currentQuestion++;
@@ -1011,7 +965,6 @@
             }
         }
 
-        // PREVIOUS QUESTION
         function previousQuestion() {
             if (currentQuestion > 0) {
                 currentQuestion--;
@@ -1019,7 +972,6 @@
             }
         }
 
-        // SHOW RESULTS
         function showResults() {
             document.getElementById('quizScreen').classList.remove('active');
             document.getElementById('resultsScreen').classList.add('active');
@@ -1028,7 +980,6 @@
             displayResults();
         }
 
-        // CALCULATE SCORES
         function calculateScores() {
             scores = {
                 'citric': 0,
@@ -1132,7 +1083,6 @@
             }
         }
 
-        // DISPLAY RESULTS
         function displayResults() {
             const categoryLabels = {
                 'citric': '🍋 Citric',
@@ -1164,97 +1114,118 @@
             document.getElementById('resultsGrid').innerHTML = resultsHTML;
         }
 
-        // TOGGLE API SECTION
-        function toggleApiSection() {
-            const apiSection = document.getElementById('apiSection');
-            const finalActions = document.getElementById('finalActions');
-            
-            if (apiSection.classList.contains('show')) {
-                apiSection.classList.remove('show');
-                finalActions.style.display = 'flex';
-            } else {
-                apiSection.classList.add('show');
-                finalActions.style.display = 'none';
-            }
-        }
-
-        // GENERATE RECOMMENDATIONS
-        function generateRecommendations() {
-            const workerUrl = "https://parfumulmeu.revivinghandicraft.workers.dev/";
-
+        function showRecommendations() {
             const recommendationsContainer = document.getElementById('recommendationsContainer');
             const recommendationsContent = document.getElementById('recommendationsContent');
-            const recommendationsSpinner = document.getElementById('recommendationsSpinner');
 
-            recommendationsContainer.style.display = 'block';
-            recommendationsSpinner.innerHTML = '<div class="loading-spinner"></div>';
-            recommendationsContent.innerHTML = '';
+            // Găsește SCORUL MAXIM
+            const maxScore = Math.max(...Object.values(scores));
 
-            const topCategories = Object.entries(scores)
-                .sort((a, b) => b[1] - a[1])
-                .slice(0, 3);
+            // Găsește TOATE categoriile cu scor maxim
+            const maxCategories = Object.keys(scores).filter(category => scores[category] === maxScore);
 
-            const prompt = `Ești un expert în parfumuri cu referințe de pe Fragrantica.com și EasyCosmetic.de. Un utilizator de gen ${currentGender} a completat un chestionar despre preferințele sale de parfum. Iată rezultatele sale:
+            const categorySearch = {
+                'citric': 'citrus',
+                'floral': 'floral',
+                'fruity': 'fruity',
+                'oriental': 'oriental',
+                'fresh': 'fresh',
+                'woody': 'woody',
+                'aromatic': 'aromatic',
+                'green': 'green'
+            };
 
-Categoriile de parfum preferate (scor din 100):
-${topCategories.map((entry, i) => `${i + 1}. ${entry[0].toUpperCase()}: ${entry[1]}/100`).join('\n')}
+            const categoryEmojis = {
+                'citric': '🍋',
+                'floral': '🌹',
+                'fruity': '🍓',
+                'oriental': '✨',
+                'fresh': '💨',
+                'woody': '🌲',
+                'aromatic': '🌿',
+                'green': '🍃'
+            };
 
-Pe baza acestor preferințe și a profilului ${currentGender}:
+            let html = `
+                <div style="margin-bottom: 30px;">
+                    <h3 style="color: var(--primary-color); margin-bottom: 15px; font-size: 1.3em;">
+                        🎯 Profilul tău olfactiv
+                    </h3>
+                    <div style="background: var(--bg-color); padding: 15px; border-radius: 10px; border-left: 4px solid var(--primary-color); margin-bottom: 25px;">
+                        <p style="color: #333; margin-bottom: 10px; font-weight: 600;">
+                            Scor de potrivire maxim: <strong style="color: var(--primary-color); font-size: 1.2em;">${maxScore}/100</strong>
+                        </p>
+                        <p style="color: #666; font-size: 0.95em;">
+                            ${maxCategories.length > 1 
+                                ? `Pe baza răspunsurilor tale, ai profile olfactive perfecte în <strong>${maxCategories.length} categorii</strong>: <strong>${maxCategories.map(c => c.toUpperCase()).join(', ')}</strong>` 
+                                : `Pe baza răspunsurilor tale, categoria de parfum <strong>${maxCategories[0].toUpperCase()}</strong> se potrivește perfect cu preferințele tale.`
+                            }
+                        </p>
+                    </div>
+            `;
 
-1. Recomandă 3-4 parfumuri specifice și REALE din cataloge actuale (marcă + model exact)
-2. Pentru fiecare, explică de ce se potrivește cu profilul utilizatorului
-3. Menționează notele caracteristice și concentrația (EDT/EDP)
-4. Oferi sfaturi de aplicare și longevitate așteptată
-5. Descrie "profilul olfactiv" final al utilizatorului
+            // Afișează pentru FIECARE categorie cu scor maxim
+            maxCategories.forEach(maxCategory => {
+                const searchTerm = categorySearch[maxCategory] || maxCategory;
+                const fragranticaUrl = `https://www.fragrantica.com/perfume-finder/?notesGroup=${searchTerm}`;
+                const parfumuri = PARFUMURI_RECOMANDARI[currentGender][maxCategory];
 
-Răspunde în limba română, cu ton amical și expert. Fă recomandări relevante și atractive.`;
+                html += `
+                    <div style="margin-bottom: 35px; padding: 25px; background: var(--bg-color); border-radius: 12px; border: 2px solid var(--primary-color);">
+                        <h3 style="color: var(--primary-color); margin-bottom: 20px; font-size: 1.2em;">
+                            ${categoryEmojis[maxCategory]} ${maxCategory.toUpperCase()} (Scor: ${scores[maxCategory]}/100)
+                        </h3>
 
-            streamRecommendations(workerUrl, prompt);
-        }
+                        <div style="margin-bottom: 20px;">
+                            <a href="${fragranticaUrl}" target="_blank" style="text-decoration: none;">
+                                <div style="background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%); padding: 15px; border-radius: 10px; text-align: center; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(0,0,0,0.1); display: block;">
+                                    <h4 style="color: white; margin: 0; font-size: 1em; font-weight: 600;">🌺 Explorează pe Fragrantica</h4>
+                                    <p style="color: rgba(255,255,255,0.9); margin: 6px 0 0 0; font-size: 0.85em;">Căutare filtrată: <strong>${maxCategory}</strong></p>
+                                </div>
+                            </a>
+                        </div>
 
-        // STREAM RECOMMENDATIONS
-        async function streamRecommendations(workerUrl, prompt) {
-            try {
-                const response = await fetch(workerUrl, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        prompt: prompt
-                    })
+                        <div style="margin-top: 20px;">
+                            <h4 style="color: var(--text-color); margin-bottom: 15px; font-size: 1.05em;">💎 Exemple de parfumuri:</h4>
+                `;
+
+                parfumuri.forEach((parfum, index) => {
+                    html += `
+                        <div style="background: white; border: 2px solid var(--primary-color); border-radius: 10px; padding: 12px; margin-bottom: 10px;">
+                            <h5 style="color: var(--text-color); margin: 0 0 6px 0; font-size: 1em;">
+                                ${index + 1}. ${parfum.nume}
+                            </h5>
+                            <p style="color: #666; margin: 3px 0; font-size: 0.85em;">
+                                <strong>Note:</strong> ${parfum.note}
+                            </p>
+                            <p style="color: #666; margin: 3px 0; font-size: 0.85em;">
+                                <strong>Concentrație:</strong> ${parfum.concentratie}
+                            </p>
+                        </div>
+                    `;
                 });
 
-                if (!response.ok) {
-                    throw new Error(`Eroare ${response.status}: ${response.statusText}`);
-                }
+                html += `
+                        </div>
+                    </div>
+                `;
+            });
 
-                const recommendationsContent = document.getElementById('recommendationsContent');
-                const recommendationsSpinner = document.getElementById('recommendationsSpinner');
-                recommendationsSpinner.innerHTML = '';
+            html += `
+                    <div style="margin-top: 25px; padding: 15px; background: #fef3cd; border-radius: 10px; border-left: 4px solid #ffc107;">
+                        <p style="color: #856404; margin: 0; font-size: 0.9em;">
+                            <strong>ℹ️ Sfat:</strong> Vizitează Fragrantica pentru recenzii detaliate, acorduri cu alte parfumuri, și pentru a descoperi alte variante din aceeași categorie. 
+                            Poți filtra după note, durabilitate, și note olfactive specifice.
+                        </p>
+                    </div>
+                </div>
+            `;
 
-                const reader = response.body.getReader();
-                const decoder = new TextDecoder();
-
-                while (true) {
-                    const { done, value } = await reader.read();
-                    if (done) break;
-
-                    const chunk = decoder.decode(value);
-                    const text = chunk
-                        .replace(/\n/g, '<br>')
-                        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-                        .replace(/\*(.*?)\*/g, '<em>$1</em>');
-                    
-                    recommendationsContent.innerHTML += text;
-                }
-            } catch (error) {
-                const recommendationsContent = document.getElementById('recommendationsContent');
-                recommendationsContent.innerHTML = `<strong>Eroare:</strong> ${error.message}<br><br><small>Asigură-te că URL-ul Cloudflare Worker este corect și disponibil.</small>`;
-            }
+            recommendationsContent.innerHTML = html;
+            recommendationsContainer.style.display = 'block';
+            recommendationsContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
 
-        // RESTART
         function restart() {
             location.reload();
         }

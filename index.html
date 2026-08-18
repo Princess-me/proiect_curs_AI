@@ -1,0 +1,1278 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parfumul Meu - Descoperă-ți Parfumul Perfect</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            transition: background-color 0.5s ease;
+        }
+
+        body.gender-selected {
+            background: var(--bg-color);
+        }
+
+        :root {
+            --primary-color: #E8D4C0;
+            --secondary-color: #D4B896;
+            --bg-color: #ffffff;
+            --text-color: #333;
+        }
+
+        body.femeie {
+            --primary-color: #d8a5d8;
+            --secondary-color: #f4b3d8;
+            --bg-color: #fdf6f9;
+        }
+
+        body.barbat {
+            --primary-color: #7fb3d5;
+            --secondary-color: #a8d8e8;
+            --bg-color: #f0f8fb;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+            max-width: 900px;
+            width: 100%;
+            overflow: hidden;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            padding: 50px 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.8em;
+            margin-bottom: 12px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            letter-spacing: 1px;
+            color: #000000;
+        }
+
+        .header p {
+            font-size: 1.15em;
+            opacity: 0.95;
+            font-weight: 300;
+            color: #000000;
+        }
+
+        .content {
+            padding: 50px 40px;
+            min-height: 400px;
+        }
+
+        /* ECRANUL DE START - SELECTARE GEN */
+        .gender-screen {
+            display: block;
+            text-align: center;
+        }
+
+        .gender-screen.hidden {
+            display: none;
+        }
+
+        .gender-intro {
+            margin-bottom: 40px;
+        }
+
+        .gender-intro h2 {
+            font-size: 1.6em;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .gender-intro p {
+            font-size: 1.05em;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .gender-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-top: 35px;
+        }
+
+        .gender-btn {
+            padding: 45px;
+            border: 3px solid #D4B896;
+            border-radius: 15px;
+            background: white;
+            cursor: pointer;
+            font-size: 1.4em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            color: #000000;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .gender-btn:hover {
+            background: #D4B896;
+            color: white;
+            transform: translateY(-8px);
+            box-shadow: 0 12px 35px rgba(0,0,0,0.15);
+        }
+
+        .gender-icon {
+            font-size: 3.5em;
+            opacity: 0.8;
+        }
+
+        .gender-btn:hover .gender-icon {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+
+        /* ECRANUL QUIZ */
+        .quiz-screen {
+            display: none;
+        }
+
+        .quiz-screen.active {
+            display: block;
+        }
+
+        .progress-container {
+            margin-bottom: 35px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 12px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            transition: width 0.4s ease;
+        }
+
+        .progress-text {
+            font-size: 0.9em;
+            color: #888;
+            text-align: right;
+        }
+
+        .question-container {
+            margin-bottom: 35px;
+        }
+
+        .question-number {
+            font-size: 0.95em;
+            color: var(--primary-color);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .question-text {
+            font-size: 1.35em;
+            font-weight: 600;
+            color: var(--text-color);
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        .options-grid {
+            display: grid;
+            gap: 12px;
+            margin-bottom: 35px;
+        }
+
+        .option-item {
+            padding: 16px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            cursor: pointer;
+            background: white;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+        }
+
+        .option-item:hover {
+            border-color: var(--primary-color);
+            background: var(--bg-color);
+            transform: translateX(5px);
+        }
+
+        .option-item input[type="radio"] {
+            cursor: pointer;
+            width: 20px;
+            height: 20px;
+            margin-top: 2px;
+            flex-shrink: 0;
+            accent-color: var(--primary-color);
+        }
+
+        .option-content {
+            flex: 1;
+        }
+
+        .option-text {
+            font-size: 1.05em;
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 4px;
+        }
+
+        .option-example {
+            font-size: 0.85em;
+            color: #777;
+            font-style: italic;
+            line-height: 1.4;
+        }
+
+        .option-item.selected {
+            background: var(--bg-color);
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(0,0,0,0.05);
+        }
+
+        /* BUTOANE */
+        .button-group {
+            display: flex;
+            gap: 15px;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+
+        button {
+            padding: 13px 28px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-secondary {
+            background: #f0f0f0;
+            color: #333;
+            border: 2px solid #e0e0e0;
+        }
+
+        .btn-secondary:hover {
+            background: #e0e0e0;
+            transform: translateY(-2px);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            flex: 1;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* ECRANUL DE REZULTATE */
+        .results-screen {
+            display: none;
+        }
+
+        .results-screen.active {
+            display: block;
+        }
+
+        .results-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .results-title {
+            font-size: 2em;
+            font-weight: 700;
+            color: var(--text-color);
+            margin-bottom: 10px;
+        }
+
+        .results-subtitle {
+            font-size: 1.05em;
+            color: #666;
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .result-card {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            border: 2px solid #f0f0f0;
+            transition: all 0.3s ease;
+        }
+
+        .result-card:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+
+        .result-category-name {
+            font-size: 0.95em;
+            font-weight: 600;
+            color: var(--primary-color);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+        }
+
+        .result-bar-container {
+            margin-bottom: 12px;
+        }
+
+        .result-bar {
+            width: 100%;
+            height: 6px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+
+        .result-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            transition: width 0.6s ease;
+        }
+
+        .result-score {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .result-percent {
+            font-size: 0.85em;
+            color: #888;
+            margin-top: 4px;
+        }
+
+        /* SECȚIUNEA RECOMANDĂRI */
+        .recommendations-section {
+            margin-top: 40px;
+            padding-top: 40px;
+            border-top: 2px solid #e0e0e0;
+        }
+
+        .recommendations-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .recommendations-title {
+            font-size: 1.4em;
+            font-weight: 700;
+            color: var(--text-color);
+        }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            border: 3px solid var(--primary-color);
+            border-top: 3px solid transparent;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .recommendations-content {
+            background: var(--bg-color);
+            padding: 25px;
+            border-radius: 12px;
+            border: 2px solid #e0e0e0;
+            line-height: 1.8;
+            color: #333;
+            max-height: 500px;
+            overflow-y: auto;
+            font-size: 1em;
+        }
+
+        .recommendations-content::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .recommendations-content::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        .recommendations-content::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            border-radius: 10px;
+        }
+
+        /* API URL SECTION */
+        .api-section {
+            background: #fef3cd;
+            border-left: 4px solid #ffc107;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            display: none;
+        }
+
+        .api-section.show {
+            display: block;
+        }
+
+        .api-section label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #856404;
+        }
+
+        .api-section input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ffc107;
+            border-radius: 6px;
+            font-size: 0.9em;
+            margin-bottom: 8px;
+        }
+
+        .api-section small {
+            display: block;
+            color: #856404;
+            margin-top: 8px;
+            line-height: 1.5;
+        }
+
+        .api-btn-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 12px;
+        }
+
+        .api-btn-group button {
+            flex: 1;
+            padding: 10px;
+            font-size: 0.9em;
+        }
+
+        /* BUTOANE FINALE */
+        .final-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            margin-top: 35px;
+            flex-wrap: wrap;
+        }
+
+        .btn-recommend {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 12px 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .btn-recommend:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .btn-restart {
+            background: #f0f0f0;
+            color: #333;
+            padding: 12px 25px;
+            border: 2px solid #e0e0e0;
+        }
+
+        .btn-restart:hover {
+            background: #e0e0e0;
+        }
+
+        /* ERROR MESSAGE */
+        .error-message {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #f5c6cb;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+
+            .header p {
+                font-size: 1em;
+            }
+
+            .content {
+                padding: 30px 20px;
+            }
+
+            .gender-options {
+                grid-template-columns: 1fr;
+            }
+
+            .gender-btn {
+                padding: 35px;
+            }
+
+            .question-text {
+                font-size: 1.2em;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            .results-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .recommendations-content {
+                font-size: 0.95em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                border-radius: 10px;
+            }
+
+            .header {
+                padding: 30px 20px;
+            }
+
+            .header h1 {
+                font-size: 1.6em;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            .gender-btn {
+                padding: 25px;
+                font-size: 1.1em;
+            }
+
+            .gender-icon {
+                font-size: 2.5em;
+            }
+
+            .question-text {
+                font-size: 1.05em;
+            }
+
+            .results-grid {
+                gap: 12px;
+            }
+
+            .result-card {
+                padding: 15px;
+            }
+
+            .result-score {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- HEADER -->
+        <div class="header">
+            <h1>Parfumul Meu</h1>
+            <p>Descoperă-ți parfumul perfect cu ajutorul inteligenței artificiale</p>
+        </div>
+
+        <!-- CONTENT -->
+        <div class="content">
+            <!-- GENDER SELECTION SCREEN -->
+            <div id="genderScreen" class="gender-screen">
+                <div class="gender-intro">
+                    <h2>Bun venit în Parfumul Meu!</h2>
+                    <p>Răspunde la 10 întrebări personalizate și descoperă-ți parfumul perfect. Cu ajutorul inteligenței artificiale, vei primi recomandări personalizate bazate pe preferințele tale.</p>
+                </div>
+                <div class="gender-options">
+                    <button class="gender-btn" onclick="selectGender('barbat')">
+                        <div>Bărbat</div>
+                    </button>
+                    <button class="gender-btn" onclick="selectGender('femeie')">
+                        <div>Femeie</div>
+                    </button>
+                </div>
+            </div>
+
+            <!-- QUIZ SCREEN -->
+            <div id="quizScreen" class="quiz-screen">
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div id="progressFill" class="progress-fill" style="width: 0%"></div>
+                    </div>
+                    <div class="progress-text" id="progressText">1 / 10</div>
+                </div>
+
+                <div class="question-container">
+                    <div class="question-number" id="questionNumber"></div>
+                    <div class="question-text" id="questionText"></div>
+                    <div class="options-grid" id="optionsContainer"></div>
+                </div>
+
+                <div class="button-group">
+                    <button class="btn-secondary" id="backBtn" onclick="previousQuestion()" style="display: none;">← Înapoi</button>
+                    <button id="nextBtn" class="btn-primary" onclick="nextQuestion()" disabled>Următoarea →</button>
+                </div>
+            </div>
+
+            <!-- RESULTS SCREEN -->
+            <div id="resultsScreen" class="results-screen">
+                <div class="results-header">
+                    <div class="results-title">Profilul tău olfactiv</div>
+                    <div class="results-subtitle">Iată cum te încadrezi în categoriile de parfum</div>
+                </div>
+
+                <div class="results-grid" id="resultsGrid"></div>
+
+                <div class="recommendations-section">
+                    <div class="api-section" id="apiSection">
+                        <label for="apiKeyInput">URL Cloudflare Worker (pentru recomandări AI):</label>
+                        <input type="text" id="apiKeyInput" placeholder="https://parfumulmeu.revivinghandicraft.workers.dev/" value="https://parfumulmeu.revivinghandicraft.workers.dev/">
+                        <small>URL-ul proxy Cloudflare Worker care trimite cererea la API-ul Anthropic. URL-ul nu va fi salvat.</small>
+                        <div class="api-btn-group">
+                            <button class="btn-recommend" onclick="generateRecommendations()">🤖 Generează recomandări</button>
+                            <button class="btn-secondary" onclick="toggleApiSection()">Anulează</button>
+                        </div>
+                    </div>
+
+                    <div class="error-message" id="errorMessage"></div>
+
+                    <div class="final-actions" id="finalActions">
+                        <button class="btn-recommend" onclick="toggleApiSection()">🤖 Generează recomandări AI</button>
+                        <button class="btn-restart" onclick="restart()">Restart</button>
+                    </div>
+
+                    <div id="recommendationsContainer" style="display: none;">
+                        <div class="recommendations-header">
+                            <div class="recommendations-title">Recomandări personalizate</div>
+                            <div id="recommendationsSpinner"></div>
+                        </div>
+                        <div class="recommendations-content" id="recommendationsContent"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // QUESTIONS - Updated with data from Fragrantica & EasyCosmetic
+        const QUESTIONS_DATA = {
+            barbat: [
+                {
+                    text: "Ce tip de parfum preferi pentru diferite ocazii?",
+                    category: "ocasii",
+                    options: [
+                        { text: "Vară - ceva ușor și proaspăt", example: "Ex: Acqua di Gioia, Issey Miyake Pour Homme L'Eau d'Issey" },
+                        { text: "Iarnă - ceva cald și intens", example: "Ex: Dior Sauvage Elixir, Tom Ford Noir Anthracite" },
+                        { text: "Orice anotimp - neutral și versatil", example: "Ex: Creed Green Irish Tweed, Hermès Eau de Gentleman" },
+                        { text: "Ocazii speciale - ceva sofisticat și dominat", example: "Ex: Givenchy Gentleman Reserve Privée, Yves Saint Laurent La Nuit" }
+                    ]
+                },
+                {
+                    text: "Care sunt notele de vârf preferate?",
+                    category: "top_notes",
+                    options: [
+                        { text: "Citrice și proaspete (Bergamotă, Lămâie, Grapă)", example: "Ex: Acqua di Parma Colonia Pura, Dior Homme Sport" },
+                        { text: "Aromatice și picante (Peperita, Coriandru, Ginger)", example: "Ex: Givenchy Gentleman, Versace Eros" },
+                        { text: "Fructate și coniacă (Piersică, Mango)", example: "Ex: Prada L'Homme, Versace Eros Flame" },
+                        { text: "Apă și marine (Note aquatice, fresh)", example: "Ex: Acqua di Gioia, Clinique Happy for Men" }
+                    ]
+                },
+                {
+                    text: "Ce note de inimă (mijloc) te atrag cel mai mult?",
+                    category: "heart_notes",
+                    options: [
+                        { text: "Florale și delicate (Trandafir, Iasomie, Iris)", example: "Ex: Dior Sauvage, Bleu de Chanel" },
+                        { text: "Aromatice și lemnoase (Cedru, Salvia, Rozmarin)", example: "Ex: Creed Green Irish Tweed, Hermès Eau de Gentleman" },
+                        { text: "Fructate și pulpă (Cireșă, Piersică, Cacao)", example: "Ex: Tom Ford Noir, Prada L'Homme" },
+                        { text: "Condimente și cald (Piper negru, Scortișoară, Cuișor)", example: "Ex: Yves Saint Laurent La Nuit, Givenchy Gentleman Reserve" }
+                    ]
+                },
+                {
+                    text: "Care note de bază îți plac cel mai mult?",
+                    category: "base_notes",
+                    options: [
+                        { text: "Lemn pur și curat (Cedru, Palisandru, Santalwood)", example: "Ex: Creed Green Irish Tweed Parfum, Tom Ford Oud Wood" },
+                        { text: "Musk și animalic (Musk alb, Ambroxan, Castor)", example: "Ex: Givenchy Gentleman, Dior Sauvage Elixir" },
+                        { text: "Vanilie și reșini (Vanilie, Cacao, Balsam Tolu)", example: "Ex: Prada L'Homme, Yves Saint Laurent La Nuit" },
+                        { text: "Patchouli și pământ (Patchouli, Vetiver, Frunze tutun)", example: "Ex: Tom Ford Black Orchid, Hermès Terre d'Hermès" }
+                    ]
+                },
+                {
+                    text: "Care categorie de parfum se potrivește personalității tale?",
+                    category: "profile",
+                    options: [
+                        { text: "Fresh/Citric - energic și revigorant", example: "Ex: Acqua di Gioia, Hermès Eau de Merveilles Bleue" },
+                        { text: "Woody - solid și masonic", example: "Ex: Creed Green Irish Tweed, Hermès Terre d'Hermès" },
+                        { text: "Aromatic/Fougère - clasic și tradițional", example: "Ex: Givenchy Gentleman, Acqua di Parma Colonia" },
+                        { text: "Oriental/Spicy - grav și seducător", example: "Ex: Tom Ford Black Orchid, Yves Saint Laurent La Nuit" }
+                    ]
+                },
+                {
+                    text: "Cum preferi intensitatea parfumului?",
+                    category: "intensity",
+                    options: [
+                        { text: "Ușor și discret (Eau de Cologne - 3-5%)", example: "Ex: Hermès Eau de Merveilles, Acqua di Parma Blu Mediterraneo" },
+                        { text: "Moderat și echilibrat (Eau de Toilette - 5-8%)", example: "Ex: Acqua di Gioia, Issey Miyake Pour Homme" },
+                        { text: "Intens și prezent (Eau de Parfum - 8-15%)", example: "Ex: Sauvage EdP, Dior Sauvage Elixir" },
+                        { text: "Foarte intens și dominat (Parfum pur - 15-40%)", example: "Ex: Creed Aventus Parfum, Tom Ford Black Orchid Parfum" }
+                    ]
+                },
+                {
+                    text: "Ce durabilitate îți dorești?",
+                    category: "longevity",
+                    options: [
+                        { text: "Scurtă (2-4 ore)", example: "Ex: Eau de Cologne clasică" },
+                        { text: "Medie (4-8 ore)", example: "Ex: Eau de Toilette" },
+                        { text: "Lungă (8-12 ore)", example: "Ex: Eau de Parfum" },
+                        { text: "Foarte lungă (12+ ore, tip Creed Aventus)", example: "Ex: Parfum pur, Creed Aventus" }
+                    ]
+                },
+                {
+                    text: "Care tip de note verde/aromatică te atrage?",
+                    category: "green_aromatic",
+                    options: [
+                        { text: "Verde proaspătă (Frunze, Iarbă, Spearmint)", example: "Ex: Creed Green Irish Tweed, Acqua di Parma Blu Mediterraneo" },
+                        { text: "Verde herbal (Salvie, Rozmarin, Tarragon)", example: "Ex: Creed Green Irish Tweed, Hermès Eau de Gentleman" },
+                        { text: "Aromatică clasică (Lavandă, Coriandru, Anason)", example: "Ex: Givenchy Gentleman, Versace Eros" },
+                        { text: "Nu prefer verde - alte note", example: "Ex: preferi alte categorii de note" }
+                    ]
+                },
+                {
+                    text: "Ce senzație vrei după aplicare?",
+                    category: "sensation",
+                    options: [
+                        { text: "Proaspătă și tonică (Revigorantă)", example: "Ex: Acqua di Gioia, Hermès Eau de Merveilles Bleue" },
+                        { text: "Calmă și relaxantă (Liniștită)", example: "Ex: Bvlgari Aqua Lavender, Hermès Eau de Gentleman" },
+                        { text: "Caldă și invitantă (Confortabilă)", example: "Ex: Prada L'Homme, Givenchy Gentleman" },
+                        { text: "Sensual și seducătoare (Magnetică)", example: "Ex: Tom Ford Black Orchid, Yves Saint Laurent La Nuit" }
+                    ]
+                },
+                {
+                    text: "Care parfum iconic te inspiră cel mai mult?",
+                    category: "iconic",
+                    options: [
+                        { text: "Creed Aventus - pineapple, lemn, musk, atemporat", example: "Ex: Iconic de lux pentru bărbați" },
+                        { text: "Dior Sauvage - ambroxan, citrice, piper, versatil", example: "Ex: Bestseller modern pentru bărbați" },
+                        { text: "Givenchy Gentleman - iris, cacao, cinnamon, sofisticat", example: "Ex: Eleganță și rafinament sigur" },
+                        { text: "Acqua di Gioia - marin, lămâie, iarbă, revigorant", example: "Ex: Fresh și proaspăt, tip apă de mare" }
+                    ]
+                }
+            ],
+            femeie: [
+                {
+                    text: "Ce tip de parfum preferi pentru diferite ocazii?",
+                    category: "ocasii",
+                    options: [
+                        { text: "Vară - ceva ușor și proaspăt", example: "Ex: Light Blue, Hermès Eau de Merveilles Bleue" },
+                        { text: "Iarnă - ceva cald și plin", example: "Ex: Dior J'Adore, Tom Ford Black Orchid" },
+                        { text: "Orice anotimp - universal și versatil", example: "Ex: Chanel No. 5, Guerlain Shalimar" },
+                        { text: "Seară/Ocazii speciale - ceva intens și seducător", example: "Ex: Yves Saint Laurent Opium, Lancôme Trésor" }
+                    ]
+                },
+                {
+                    text: "Care sunt notele de vârf preferate?",
+                    category: "top_notes",
+                    options: [
+                        { text: "Citrice și proaspete (Bergamotă, Lămâie, Portocală)", example: "Ex: Light Blue, Acqua di Parma Blu Mediterraneo" },
+                        { text: "Florale delicate (Trandafir, Iasomie, Ornieț)", example: "Ex: Dior Miss Dior, Chanel Coco" },
+                        { text: "Fructate și gâtuite (Cireșă, Piersică, Zmeură, Mango)", example: "Ex: La Vie est Belle, Juicy Couture Viva La Juicy" },
+                        { text: "Specy și condimente (Scortișoară, Ginger, Coriandru)", example: "Ex: Yves Saint Laurent Opium, Prada Candy" }
+                    ]
+                },
+                {
+                    text: "Ce note de inimă (mijloc) te atrag cel mai mult?",
+                    category: "heart_notes",
+                    options: [
+                        { text: "Florale clasice (Trandafir roșu, Iasomie, Narcisă)", example: "Ex: Chanel No. 5, Guerlain Shalimar" },
+                        { text: "Florale moderne (Pivoină, Liliac, Frezii, Gardenie)", example: "Ex: Lancôme La Vie est Belle, Dior J'Adore" },
+                        { text: "Fructate și dulce (Cireșă, Piersică, Cacao, Caram)", example: "Ex: Moschino Toy, Prada Candy" },
+                        { text: "Condimente și cald (Scortișoară, Cardamom, Anason)", example: "Ex: Yves Saint Laurent Opium, Dior Poison" }
+                    ]
+                },
+                {
+                    text: "Care note de bază îți plac cel mai mult?",
+                    category: "base_notes",
+                    options: [
+                        { text: "Vanilie și cacao (Vanilie bogată, chocolate, tonka)", example: "Ex: Givenchy L'Homme Prada, Juicy Couture" },
+                        { text: "Musk și animalic (Musk alb, Ambra, Castor)", example: "Ex: Lancôme Miracle, Yves Saint Laurent Opium" },
+                        { text: "Patchouli și pământ (Patchouli, Vetiver, Frunze tutun)", example: "Ex: Tom Ford Black Orchid, Hermès Eau de Gentilhomme" },
+                        { text: "Lemn și cedru (Santalwood, Cedru, Palisandru)", example: "Ex: Chanel No. 5, Guerlain Shalimar" }
+                    ]
+                },
+                {
+                    text: "Care profil de parfum se potrivește personalității tale?",
+                    category: "profile",
+                    options: [
+                        { text: "Floral - romantic și delicat", example: "Ex: Chanel No. 5, Dior Miss Dior" },
+                        { text: "Fresh/Citric - proaspăt și energic", example: "Ex: Light Blue, Hermès Eau de Merveilles" },
+                        { text: "Fruity/Gourmand - vesel și dinamic", example: "Ex: Prada Candy, Juicy Couture" },
+                        { text: "Oriental/Sensual - grav și seducător", example: "Ex: Yves Saint Laurent Opium, Lancôme Trésor" }
+                    ]
+                },
+                {
+                    text: "Cum preferi intensitatea parfumului?",
+                    category: "intensity",
+                    options: [
+                        { text: "Ușor și discret (Eau de Cologne - 3-5%)", example: "Ex: Hermès Eau de Merveilles, Jo Malone" },
+                        { text: "Moderat și echilibrat (Eau de Toilette - 5-8%)", example: "Ex: Light Blue, Clinique Happy" },
+                        { text: "Intens și prezent (Eau de Parfum - 8-15%)", example: "Ex: Dior J'Adore EdP, Chanel No. 5 EdP" },
+                        { text: "Foarte intens și dominat (Parfum pur - 15-40%)", example: "Ex: Lancôme Trésor Passion, Yves Saint Laurent Opium Pur" }
+                    ]
+                },
+                {
+                    text: "Ce durabilitate îți dorești?",
+                    category: "longevity",
+                    options: [
+                        { text: "Scurtă (2-4 ore)", example: "Ex: Eau de Cologne ușoară" },
+                        { text: "Medie (4-8 ore)", example: "Ex: Eau de Toilette tradițională" },
+                        { text: "Lungă (8-12 ore)", example: "Ex: Eau de Parfum" },
+                        { text: "Foarte lungă (12+ ore)", example: "Ex: Parfum pur, Lancôme Trésor" }
+                    ]
+                },
+                {
+                    text: "Ce senzație vrei după aplicare?",
+                    category: "sensation",
+                    options: [
+                        { text: "Proaspătă și tonică (Revigorantă)", example: "Ex: Light Blue, Hermès Eau de Merveilles" },
+                        { text: "Calmă și relaxantă (Liniștită)", example: "Ex: Penhaligon's Elisium, Bvlgari Aqua Lavender" },
+                        { text: "Caldă și invitantă (Confortabilă)", example: "Ex: Chanel No. 5, Lancôme Trésor" },
+                        { text: "Sensual și seducătoare (Magnetică)", example: "Ex: Tom Ford Black Orchid, Yves Saint Laurent Opium" }
+                    ]
+                },
+                {
+                    text: "Care tip de note florale te fascinez cel mai mult?",
+                    category: "floral_type",
+                    options: [
+                        { text: "Trandafir - clasic și romantic", example: "Ex: Chanel No. 5, Dior Miss Dior" },
+                        { text: "Iasomie - exotic și nocturn", example: "Ex: Chanel No. 5, Guerlain Shalimar" },
+                        { text: "Ornieț/Iris - elegant și rafinat", example: "Ex: Dior Miss Dior, Givenchy Amarige" },
+                        { text: "Pivoină - modern și plin de viață", example: "Ex: Lancôme La Vie est Belle, Dior J'Adore" }
+                    ]
+                },
+                {
+                    text: "Care parfum iconic te inspiră cel mai mult?",
+                    category: "iconic",
+                    options: [
+                        { text: "Chanel No. 5 - trandafir, iasomie, ambra, atemporat", example: "Ex: Legendă absolută din 1921" },
+                        { text: "Dior J'Adore - trandafir, irisă, ambra, modern elegant", example: "Ex: Bestseller modern iconic" },
+                        { text: "Yves Saint Laurent Opium - scortișoară, iasomie, ambra, sensual", example: "Ex: Intens și misterios" },
+                        { text: "Lancôme Trésor - trandafir, petunia, cacao, plăcut", example: "Ex: Frumusețea universală și caldă" }
+                    ]
+                }
+            ]
+        };
+
+        // GLOBAL STATE
+        let currentGender = null;
+        let currentQuestion = 0;
+        let answers = [];
+        let scores = {};
+
+        // START QUIZ
+        function selectGender(gender) {
+            currentGender = gender;
+            document.body.classList.add('gender-selected');
+            document.body.classList.add(gender);
+            document.getElementById('genderScreen').classList.add('hidden');
+            document.getElementById('quizScreen').classList.add('active');
+            loadQuestion();
+        }
+
+        // LOAD QUESTION
+        function loadQuestion() {
+            const questions = QUESTIONS_DATA[currentGender];
+            const question = questions[currentQuestion];
+            
+            const progress = ((currentQuestion + 1) / questions.length) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+            document.getElementById('progressText').textContent = `${currentQuestion + 1} / ${questions.length}`;
+            document.getElementById('questionNumber').textContent = `Întrebarea ${currentQuestion + 1}`;
+            document.getElementById('questionText').textContent = question.text;
+            
+            const optionsContainer = document.getElementById('optionsContainer');
+            optionsContainer.innerHTML = '';
+            
+            question.options.forEach((option, index) => {
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'option-item';
+                if (answers[currentQuestion] === index) {
+                    optionDiv.classList.add('selected');
+                }
+                
+                optionDiv.innerHTML = `
+                    <input type="radio" name="option" value="${index}" 
+                        ${answers[currentQuestion] === index ? 'checked' : ''}>
+                    <div class="option-content">
+                        <div class="option-text">${option.text}</div>
+                        <div class="option-example">${option.example}</div>
+                    </div>
+                `;
+                
+                optionDiv.addEventListener('click', () => selectOption(index));
+                optionsContainer.appendChild(optionDiv);
+            });
+
+            document.getElementById('backBtn').style.display = currentQuestion > 0 ? 'block' : 'none';
+            document.getElementById('nextBtn').disabled = answers[currentQuestion] === undefined;
+        }
+
+        // SELECT OPTION
+        function selectOption(index) {
+            answers[currentQuestion] = index;
+            loadQuestion();
+        }
+
+        // NEXT QUESTION
+        function nextQuestion() {
+            if (currentQuestion < QUESTIONS_DATA[currentGender].length - 1) {
+                currentQuestion++;
+                loadQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        // PREVIOUS QUESTION
+        function previousQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                loadQuestion();
+            }
+        }
+
+        // SHOW RESULTS
+        function showResults() {
+            document.getElementById('quizScreen').classList.remove('active');
+            document.getElementById('resultsScreen').classList.add('active');
+            
+            calculateScores();
+            displayResults();
+        }
+
+        // CALCULATE SCORES
+        function calculateScores() {
+            scores = {
+                'citric': 0,
+                'floral': 0,
+                'fruity': 0,
+                'oriental': 0,
+                'fresh': 0,
+                'woody': 0,
+                'aromatic': 0,
+                'green': 0
+            };
+
+            const questions = QUESTIONS_DATA[currentGender];
+            
+            answers.forEach((answerIndex, qIndex) => {
+                const question = questions[qIndex];
+                const category = question.category;
+                
+                const scoringMap = {
+                    ocasii: {
+                        0: { fresh: 3, citric: 2 },
+                        1: { woody: 3, oriental: 2 },
+                        2: { floral: 2, aromatic: 2 },
+                        3: { oriental: 3, woody: 2 }
+                    },
+                    top_notes: {
+                        0: { citric: 3, fresh: 2 },
+                        1: { aromatic: 3, fresh: 2 },
+                        2: { fruity: 3, fresh: 1 },
+                        3: { fresh: 3, citric: 2 }
+                    },
+                    heart_notes: {
+                        0: { floral: 3, aromatic: 1 },
+                        1: { green: 2, aromatic: 3, woody: 1 },
+                        2: { fruity: 3, floral: 1 },
+                        3: { aromatic: 3, oriental: 2 }
+                    },
+                    base_notes: {
+                        0: { woody: 2, fresh: 1 },
+                        1: { aromatic: 2, oriental: 2 },
+                        2: { oriental: 2, woody: 3 },
+                        3: { green: 2, woody: 3 }
+                    },
+                    profile: {
+                        0: { fresh: 3, citric: 2 },
+                        1: { woody: 3, aromatic: 2 },
+                        2: { fruity: 3, floral: 2 },
+                        3: { oriental: 3, woody: 2 }
+                    },
+                    intensity: {
+                        0: { fresh: 2, citric: 1 },
+                        1: { fresh: 2, aromatic: 2 },
+                        2: { floral: 2, woody: 2 },
+                        3: { oriental: 3, woody: 2 }
+                    },
+                    longevity: {
+                        0: { fresh: 2 },
+                        1: { fresh: 2, aromatic: 1 },
+                        2: { floral: 2, woody: 1 },
+                        3: { oriental: 2, woody: 2 }
+                    },
+                    sensation: {
+                        0: { fresh: 3, citric: 2 },
+                        1: { aromatic: 3, fresh: 1 },
+                        2: { floral: 2, aromatic: 2 },
+                        3: { oriental: 3, woody: 2 }
+                    },
+                    green_aromatic: {
+                        0: { green: 3, fresh: 2 },
+                        1: { green: 3, aromatic: 2 },
+                        2: { aromatic: 3, citric: 2 },
+                        3: { floral: 2 }
+                    },
+                    floral_type: {
+                        0: { floral: 3, oriental: 1 },
+                        1: { floral: 3, oriental: 1 },
+                        2: { floral: 3, green: 1 },
+                        3: { floral: 3, fresh: 1 }
+                    },
+                    iconic: {
+                        0: { floral: 3, oriental: 2 },
+                        1: { floral: 3, fresh: 1 },
+                        2: { oriental: 3, aromatic: 2 },
+                        3: { fruity: 3, woody: 2 }
+                    }
+                };
+
+                if (scoringMap[category] && scoringMap[category][answerIndex]) {
+                    const categoryScores = scoringMap[category][answerIndex];
+                    for (const [key, value] of Object.entries(categoryScores)) {
+                        if (scores[key] !== undefined) {
+                            scores[key] += value;
+                        }
+                    }
+                }
+            });
+
+            const maxScore = Math.max(...Object.values(scores)) || 1;
+            for (const key in scores) {
+                scores[key] = Math.round((scores[key] / maxScore) * 100);
+            }
+        }
+
+        // DISPLAY RESULTS
+        function displayResults() {
+            const categoryLabels = {
+                'citric': '🍋 Citric',
+                'floral': '🌹 Floral',
+                'fruity': '🍓 Fructat',
+                'oriental': '✨ Oriental',
+                'fresh': '💨 Fresh',
+                'woody': '🌲 Woody',
+                'aromatic': '🌿 Aromatic',
+                'green': '🍃 Verde'
+            };
+
+            let resultsHTML = '';
+            for (const [category, score] of Object.entries(scores)) {
+                resultsHTML += `
+                    <div class="result-card">
+                        <div class="result-category-name">${categoryLabels[category]}</div>
+                        <div class="result-bar-container">
+                            <div class="result-bar">
+                                <div class="result-bar-fill" style="width: ${score}%"></div>
+                            </div>
+                        </div>
+                        <div class="result-score">${score}</div>
+                        <div class="result-percent">din 100</div>
+                    </div>
+                `;
+            }
+
+            document.getElementById('resultsGrid').innerHTML = resultsHTML;
+        }
+
+        // TOGGLE API SECTION
+        function toggleApiSection() {
+            const apiSection = document.getElementById('apiSection');
+            const finalActions = document.getElementById('finalActions');
+            
+            if (apiSection.classList.contains('show')) {
+                apiSection.classList.remove('show');
+                finalActions.style.display = 'flex';
+            } else {
+                apiSection.classList.add('show');
+                finalActions.style.display = 'none';
+            }
+        }
+
+        // GENERATE RECOMMENDATIONS
+        function generateRecommendations() {
+            const workerUrl = document.getElementById('apiKeyInput').value.trim();
+            const errorMessage = document.getElementById('errorMessage');
+            
+            if (!workerUrl) {
+                errorMessage.textContent = 'Te rog introdu URL-ul Cloudflare Worker.';
+                errorMessage.classList.add('show');
+                return;
+            }
+
+            if (!workerUrl.startsWith('http')) {
+                errorMessage.textContent = 'URL-ul trebuie să înceapă cu http:// sau https://';
+                errorMessage.classList.add('show');
+                return;
+            }
+
+            errorMessage.classList.remove('show');
+
+            const recommendationsContainer = document.getElementById('recommendationsContainer');
+            const recommendationsContent = document.getElementById('recommendationsContent');
+            const recommendationsSpinner = document.getElementById('recommendationsSpinner');
+
+            recommendationsContainer.style.display = 'block';
+            recommendationsSpinner.innerHTML = '<div class="loading-spinner"></div>';
+            recommendationsContent.innerHTML = '';
+
+            const topCategories = Object.entries(scores)
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, 3);
+
+            const prompt = `Ești un expert în parfumuri cu referințe de pe Fragrantica.com și EasyCosmetic.de. Un utilizator de gen ${currentGender} a completat un chestionar despre preferințele sale de parfum. Iată rezultatele sale:
+
+Categoriile de parfum preferate (scor din 100):
+${topCategories.map((entry, i) => `${i + 1}. ${entry[0].toUpperCase()}: ${entry[1]}/100`).join('\n')}
+
+Pe baza acestor preferințe și a profilului ${currentGender}:
+
+1. Recomandă 3-4 parfumuri specifice și REALE din cataloge actuale (marcă + model exact)
+2. Pentru fiecare, explică de ce se potrivește cu profilul utilizatorului
+3. Menționează notele caracteristice și concentrația (EDT/EDP)
+4. Oferi sfaturi de aplicare și longevitate așteptată
+5. Descrie "profilul olfactiv" final al utilizatorului
+
+Răspunde în limba română, cu ton amical și expert. Fă recomandări relevante și atractive.`;
+
+            streamRecommendations(workerUrl, prompt);
+        }
+
+        // STREAM RECOMMENDATIONS
+        async function streamRecommendations(workerUrl, prompt) {
+            try {
+                const response = await fetch(workerUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        prompt: prompt
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Eroare ${response.status}: ${response.statusText}`);
+                }
+
+                const recommendationsContent = document.getElementById('recommendationsContent');
+                const recommendationsSpinner = document.getElementById('recommendationsSpinner');
+                recommendationsSpinner.innerHTML = '';
+
+                const reader = response.body.getReader();
+                const decoder = new TextDecoder();
+
+                while (true) {
+                    const { done, value } = await reader.read();
+                    if (done) break;
+
+                    const chunk = decoder.decode(value);
+                    const text = chunk
+                        .replace(/\n/g, '<br>')
+                        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                        .replace(/\*(.*?)\*/g, '<em>$1</em>');
+                    
+                    recommendationsContent.innerHTML += text;
+                }
+            } catch (error) {
+                const recommendationsContent = document.getElementById('recommendationsContent');
+                recommendationsContent.innerHTML = `<strong>Eroare:</strong> ${error.message}<br><br><small>Asigură-te că URL-ul Cloudflare Worker este corect și disponibil.</small>`;
+            }
+        }
+
+        // RESTART
+        function restart() {
+            location.reload();
+        }
+    </script>
+</body>
+</html>
